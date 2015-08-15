@@ -1,5 +1,6 @@
 function [X] = featureNormalize(X_norm, mu, sigma, ignore_first_row)
 
+	X_norm = X
 	if ignore_first_row
 		X_norm = X(:, (2:end));
 	end
@@ -11,6 +12,10 @@ function [X] = featureNormalize(X_norm, mu, sigma, ignore_first_row)
 	for i = 1:n
 		featureN = X_norm(:, i);
 		X(:, i) = (featureN - mu(i))/sigma(i);
+	end
+
+	if ignore_first_row
+		X = [X_norm]
 	end
 
 
