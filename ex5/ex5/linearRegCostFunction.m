@@ -19,19 +19,18 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+dif = X * theta - y;
+J = 1/(2*m) * (dif' * dif);
 
-
-
-
-
-
-
-
-
-
+reg_theta = theta(2:end, :); #don't regularize bias param
+reg_cost = lambda/(2*m) * reg_theta' * reg_theta;
+J += reg_cost;
 
 % =========================================================================
 
-grad = grad(:);
+grad(:) = 1/m * X' * dif;
+reg_grad = lambda/m * reg_theta;
+grad(2:end, :) += reg_grad;
+
 
 end
