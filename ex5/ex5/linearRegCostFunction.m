@@ -22,7 +22,7 @@ grad = zeros(size(theta));
 dif = X * theta - y;
 J = 1/(2*m) * (dif' * dif);
 
-reg_theta = theta(2:end, :); #don't regularize bias param
+reg_theta = theta(2:end, :); # don't regularize bias param
 reg_cost = lambda/(2*m) * reg_theta' * reg_theta;
 J += reg_cost;
 
