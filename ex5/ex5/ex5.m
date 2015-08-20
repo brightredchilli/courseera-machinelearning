@@ -35,13 +35,17 @@ load ('ex5data1.mat');
 m = size(X, 1);
 
 % Plot training data
+fprintf('Skipping plotting data\n');
+#{
 plot(X, y, 'rx', 'MarkerSize', 10, 'LineWidth', 1.5);
 xlabel('Change in water level (x)');
 ylabel('Water flowing out of the dam (y)');
-
+hold on;
+plot(Xtest, ytest, 'bx', 'MarkerSize', 10, 'LineWidth', 1.5);
+hold off;
 fprintf('Program paused. Press enter to continue.\n');
 pause;
-
+#}
 %% =========== Part 2: Regularized Linear Regression Cost =============
 %  You should now implement the cost function for regularized linear 
 %  regression. 
