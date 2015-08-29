@@ -17,7 +17,7 @@ sim = 0;
 %
 
 length = norm(x1-x2);
-sim = e^(length/(2 * sigma^2));
+sim = e^(-(length^2/(2 * sigma^2)));
 
 
 
