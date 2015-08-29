@@ -192,7 +192,7 @@ ylabel('Error')
 axis([0 13 0 100])
 legend('Train', 'Cross Validation')
 
-fprintf('Polynomial Regression (lambda = %f)\n\n', lambda);
+fprintf('Polynomial Regression (lambda = %f)\n\n', lambda); 
 fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
 for i = 1:m
     fprintf('  \t%d\t\t%f\t%f\n', i, error_train(i), error_val(i));
