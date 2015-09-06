@@ -6,7 +6,7 @@ function idx = findClosestCentroids(X, centroids)
 %
 
 % number of samples
-m = size(X,1)
+m = size(X,1);
 
 % Set K
 K = size(centroids, 1);
