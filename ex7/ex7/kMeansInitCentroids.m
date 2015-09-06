@@ -1,5 +1,5 @@
 function centroids = kMeansInitCentroids(X, K)
-%KMEANSINITCENTROIDS This function initializes K centroids that are to be 
+%KMEANSINITCENTROIDS This function initializes K centroids that are to be
 %used in K-Means on the dataset X
 %   centroids = KMEANSINITCENTROIDS(X, K) returns K initial centroids to be
 %   used with the K-Means on the dataset X
@@ -13,12 +13,11 @@ centroids = zeros(K, size(X, 2));
 %               the dataset X
 %
 
+m = size(X, 1); % number of data points
 
+random_idxs = ceil(rand(K, 1) * m); % idxs at random
 
-
-
-
-
+centroids = X(random_idxs, :);
 
 % =============================================================
 
