@@ -24,22 +24,16 @@ idx = zeros(m, 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-X_1 = X(:, 1); % array of all 'x' in the X samples
-X_2 = X(:, 2); % array of all 'y' in the X samples
+distances = [];
 
-centroids_1 = centroids(:, 1); % array of all 'x' in the centroids
-centroids_2 = centroids(:, 2); % array of all 'y' in the centroids
+for i = 1:K
+	c_i = centroids(i, :);
+	d = sum(bsxfun(@minus, c_i, X).^2, 2); % m x 1 matrix, distance between c_i and all the sample x
+	distances(:, i) = d;
+end
 
-Dx = bsxfun(@minus, X_1, centroids_1'); % m x k matrix of all x differences
-Dy = bsxfun(@minus, X_2, centroids_2'); % m x k matrix of all y differences
-
-% first column is distance between c1 and all xs,
-% last column is distance between ck and all xs
-D =  sqrt(Dx.^2 + Dy.^2);
-
-% we are finding the min of the columns,
-% this returns a column vector of the shortest distance between x and all c1-ck
-[maxD idx] = min(D, [], 2);
+% distances is an m x k matrix with all the distances
+[minC idx] = min(distances, [], 2); % find the min distance in every row. the column index will be the centroid
 
 % =============================================================
 
