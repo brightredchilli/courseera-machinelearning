@@ -45,19 +45,38 @@ Y_pred_error2 = (Y_pred - Y).^2;
 
 J = sum(sum(Y_pred_error2 .* R))/2;
 
+J += (lambda/2) * sum(sum(X.^2)) + (lambda/2) * sum(sum(Theta.^2));
 
+% m = number of users
+% v = number of movies
+% n = number of features
 
+for i = 1:num_movies
+	R_i = R(i,:)'; % who has rated movie i, as a column vector. m x 1
 
+	R_idx = find(R_i); % indexes of who has rated movie i as 1, m_i x 1 column vector
 
+	Theta_i = Theta(R_idx, :); % this is an m_i x n matrix.
 
+	Y_i = Y(i, R_idx)'; % ground truths from users who have rated movie i. This should be m_i x 1
 
+	X_i = X(i, :)'; % feature vector for movie i, should be n x 1
 
+	error_m_i = (Theta_i * X_i - Y_i);
 
+	% error_m_i' is 1 x m_i, Theta_i is m_i x n. Multiply to get 1 x n, which is the proper form for X_grad.
+	X_grad(i,:) = error_m_i' * Theta_i;
 
+	% error_m_i is m_i x 1, X_i' is 1 x n. Multiply to get m_i x n,
+	%which must then be updated in the proper rows using R
+	Theta_grad(R_idx, :) += error_m_i * X_i';
 
+	X_grad(i,:) += lambda * X_i';
+end
 
-
-
+% because of the way we calculate Theta_grad, we need to do this outside of the forloop,
+% otherwise we will have 'repeat' summations in Theta_grad
+Theta_grad += lambda * Theta;
 
 % =============================================================
 
