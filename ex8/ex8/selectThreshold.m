@@ -12,28 +12,30 @@ F1 = 0;
 
 stepsize = (max(pval) - min(pval)) / 1000;
 for epsilon = min(pval):stepsize:max(pval)
-    
+
     % ====================== YOUR CODE HERE ======================
     % Instructions: Compute the F1 score of choosing epsilon as the
     %               threshold and place the value in F1. The code at the
     %               end of the loop will compare the F1 score for this
     %               choice of epsilon and set it to be the best epsilon if
     %               it is better than the current choice of epsilon.
-    %               
+    %
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
 
+predictions = pval < epsilon;
 
+true_positives = sum(yval & predictions); % & wil only return 1 if both sides are 1
+false_positives = sum((predictions - yval) == 1); % if predicted = 1 and ground = 0, predictions - yval = 1
+false_negatives = sum((yval - predictions) == 1); % if predicted = 0 and ground = 1, yval - predictions = 1
 
+% precision is the ratio of true positives to all predicted positives
+precision = true_positives / (true_positives + false_positives);
 
+% recall is the ratio between true positives and all actual ground truth positives
+recall = true_positives / (true_positives + false_negatives);
 
-
-
-
-
-
-
-
+F1 = (2 * precision * recall) / (precision + recall);
 
     % =============================================================
 
