@@ -7,12 +7,12 @@ function p = predict(Theta1, Theta2, X)
 m = size(X, 1);
 num_labels = size(Theta2, 1);
 
-% You need to return the following variables correctly 
+% You need to return the following variables correctly
 p = zeros(size(X, 1), 1);
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the following code to make predictions using
-%               your learned neural network. You should set p to a 
+%               your learned neural network. You should set p to a
 %               vector containing labels between 1 to num_labels.
 %
 % Hint: The max function might come in useful. In particular, the max
@@ -24,11 +24,12 @@ p = zeros(size(X, 1), 1);
 
 
 a1 = X;
-a1_intercept = ones(size(a1, 1), 1); % add bias row
-a1 = [a1_intercept a1]; % m x n matrix, where n is the number of nodes in this layer(input layer)
+a1_intercept = ones(size(a1, 1), 1); % add bias row(but this is really a column)
+a1 = [a1_intercept a1]; % m x n matrix, where n is the number of nodes in this layer(input layer).
+						% n here includes the bias unit
 
 % Theta1 is a s(j) * s(j-1) matrix, where s(j) is the # of nodes in this layer, and s(j-1) is # of nodes from the previous layer
-a2 = sigmoid(a1 * Theta1'); 
+a2 = sigmoid(a1 * Theta1');
 a2_intercept = ones(size(a2, 1), 1);
 a2 = [a2_intercept a2]; % m * n matrix, where n is the numebr of nodes in this layer(hidden layer)
 
